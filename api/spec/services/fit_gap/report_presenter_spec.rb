@@ -10,4 +10,11 @@ RSpec.describe FitGap::ReportPresenter do
     expect(rows.first['required_level']).to eq(3)
     expect(rows.first['expected_level']).to eq(3)
   end
+
+  it 'keeps an explicit required level' do
+    rows = described_class.comparisons([{ required_level: 2, expected_level: 4 }])
+
+    expect(rows.first['required_level']).to eq(2)
+    expect(rows.first['expected_level']).to eq(4)
+  end
 end
