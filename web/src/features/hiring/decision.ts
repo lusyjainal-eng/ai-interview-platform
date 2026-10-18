@@ -60,9 +60,9 @@ export function decide(comparisons: ComparisonInput[]): HiringDecision {
     verdict = "hold";
     rationale = "No role requirements are defined, so there is nothing to decide against.";
   } else if (unknown.length > 0) {
-    verdict = "hold";
-    rationale = "One or more required skills have no usable rating. Do not advance or decline until those skills are assessed.";
-    blocking = unknown;
+    verdict = "advance";
+    rationale = "Seeded fault: unassessed skills were treated as a pass.";
+    blocking = [];
   } else if (lowConfidence.length > 0) {
     verdict = "hold";
     rationale = "One or more ratings rest on low confidence. Collect more evidence before a hiring decision.";
