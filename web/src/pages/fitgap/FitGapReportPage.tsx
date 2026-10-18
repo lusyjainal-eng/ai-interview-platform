@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ComparisonTable from "@/components/fitgap/ComparisonTable";
 import DecisionBanner from "@/components/fitgap/DecisionBanner";
 import ExpandableText from "@/components/fitgap/ExpandableText";
-import { decide } from "@/features/hiring/decision";
+import { decide, fromServerDecision } from "@/features/hiring/decision";
 import { portfoliosApi } from "@/services/portfolios";
 import { sessionsApi } from "@/services/sessions";
 import { usePolling } from "@/hooks/usePolling";
@@ -174,7 +174,9 @@ export default function FitGapReportPage() {
 
       {report && (
         <>
-          <DecisionBanner decision={decide(report.skill_comparisons)} />
+          <DecisionBanner
+            decision={report.decision ? fromServerDecision(report.decision) : decide(report.skill_comparisons)}
+          />
 
           {/* Skill comparison */}
           <Card>

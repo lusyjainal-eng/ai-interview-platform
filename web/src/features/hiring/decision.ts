@@ -20,6 +20,27 @@ export interface HiringDecision {
   lowConfidenceSkills: string[];
 }
 
+export function fromServerDecision(raw: {
+  verdict: Verdict;
+  rationale: string;
+  counts?: Partial<Record<FitResult, number>>;
+  blocking_skills?: string[];
+  low_confidence_skills?: string[];
+}): HiringDecision {
+  return {
+    verdict: raw.verdict,
+    rationale: raw.rationale,
+    counts: {
+      match: raw.counts?.match ?? 0,
+      gap: raw.counts?.gap ?? 0,
+      exceed: raw.counts?.exceed ?? 0,
+      not_assessed: raw.counts?.not_assessed ?? 0,
+    },
+    blockingSkills: raw.blocking_skills ?? [],
+    lowConfidenceSkills: raw.low_confidence_skills ?? [],
+  };
+}
+
 export function requiredLevel(row: ComparisonInput): number | null {
   const value = row.required_level ?? row.expected_level;
   return typeof value === "number" && value >= 1 && value <= 5 ? value : null;
