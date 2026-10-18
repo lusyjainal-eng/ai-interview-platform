@@ -18,7 +18,7 @@ The rule lives in `web/src/features/hiring/decision.ts` and is covered by Vitest
 
 ## Trade-off
 
-Option A was to wait for a server-side verdict column. That is the safer long-term home for the rule, and it is the subject of the backend submission. Option B, chosen here, computes the verdict in the assessor UI from fields the API already returns (`result`, `confidence`, levels). It ships the screen without a migration. The cost is two copies of the rule until the backend verdict is the only source. The UI can later prefer `report.decision` when that field exists.
+Option A was to wait for a server-side verdict column. That is the safer long-term home for the rule. Option B computes the verdict in the assessor UI from fields the API already returns (`result`, `confidence`, levels), so the screen still has a decision when an older report has no `decision` column. The page now prefers `report.decision` when the API sends it, and falls back to the client rule for reports stored before that column existed.
 
 ## Verification
 
