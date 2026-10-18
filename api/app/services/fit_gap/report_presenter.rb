@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module FitGap
-  # The web client reads required_level. Stored reports only had
+  # The web client reads required_level. Older reports only stored
   # expected_level, so the required column rendered blank.
   module ReportPresenter
     module_function

@@ -168,7 +168,8 @@ module Api
           generated_at:      portfolio.generated_at,
           generation_error:  portfolio.generation_error,
           skills:            portfolio.portfolio_skills.map(&method(:portfolio_skill_json)),
-          overrides:         portfolio.assessor_overrides.map(&method(:override_json))
+          overrides:         portfolio.assessor_overrides.map(&method(:override_json)),
+          omitted_ratings:   portfolio.has_attribute?(:omitted_ratings) ? portfolio.omitted_ratings : []
         }
       end
 
@@ -205,6 +206,7 @@ module Api
           skill_comparisons: FitGap::ReportPresenter.comparisons(report.skill_comparisons),
           culture_narrative: report.culture_narrative,
           overall_narrative: report.overall_narrative,
+          decision:          report.has_attribute?(:decision) ? report.decision : nil,
           generated_at:      report.generated_at
         }
       end
